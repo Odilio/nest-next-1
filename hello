@@ -1,0 +1,88 @@
+---
+openapi: 3.0.2
+info:
+  title: teste api
+  version: 1.0.0
+paths:
+  /hello: {}
+  /nomes:
+    summary: Path used to manage the list of nomes.
+    description: The REST endpoint/path used to list and create zero or more `nome`
+      entities.  This path contains a `GET` and `POST` operation to perform the list
+      and create tasks, respectively.
+    get:
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/nome'
+          description: Successful response - returns an array of `nome` entities.
+      operationId: getnomes
+      summary: List All nomes
+      description: Gets a list of all `nome` entities.
+    post:
+      requestBody:
+        description: A new `nome` to be created.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/nome'
+        required: true
+      responses:
+        201:
+          description: Successful response.
+      operationId: createnome
+      summary: Create a nome
+      description: Creates a new instance of a `nome`.
+  /nomes/{nomeId}:
+    summary: Path used to manage a single nome.
+    description: The REST endpoint/path used to get, update, and delete single instances
+      of an `nome`.  This path contains `GET`, `PUT`, and `DELETE` operations used
+      to perform the get, update, and delete tasks, respectively.
+    get:
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/nome'
+          description: Successful response - returns a single `nome`.
+      operationId: getnome
+      summary: Get a nome
+      description: Gets the details of a single instance of a `nome`.
+    put:
+      requestBody:
+        description: Updated `nome` information.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/nome'
+        required: true
+      responses:
+        202:
+          description: Successful response.
+      operationId: updatenome
+      summary: Update a nome
+      description: Updates an existing `nome`.
+    delete:
+      responses:
+        204:
+          description: Successful response.
+      operationId: deletenome
+      summary: Delete a nome
+      description: Deletes an existing `nome`.
+    parameters:
+    - name: nomeId
+      description: A unique identifier for a `nome`.
+      schema:
+        type: string
+      in: path
+      required: true
+components:
+  schemas:
+    nome:
+      description: ""
+      type: object
